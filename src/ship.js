@@ -1,11 +1,12 @@
-function Ship(itinerary) {
+(function exportShip() {  
+  function Ship(itinerary) {
     this.itinerary = itinerary;
     this.previousPort = null;
     this.currentPort = itinerary.ports[0];
     this.currentPort.addShip(this);
-};
+  };
 
-Ship.prototype.setSail = function() {
+  Ship.prototype.setSail = function() {
     const itinerary = this.itinerary;
     const currentPortIndex = itinerary.ports.indexOf(this.currentPort);
     if (currentPortIndex === (itinerary.ports.length -1)) {
@@ -14,16 +15,22 @@ Ship.prototype.setSail = function() {
     this.currentPort.removeShip(this);
     this.previousPort = this.currentPort;
     this.currentPort = null;
-};
+  };
 
-Ship.prototype.dock = function() {
-   const itinerary = this.itinerary;
-   const previousPortIndex = itinerary.ports.indexOf(this.previousPort);
-   this.currentPort = itinerary.ports[previousPortIndex + 1];
-   this.currentPort.addShip(this);
-};
+  Ship.prototype.dock = function() {
+    const itinerary = this.itinerary;
+    const previousPortIndex = itinerary.ports.indexOf(this.previousPort);
+    this.currentPort = itinerary.ports[previousPortIndex + 1];
+    this.currentPort.addShip(this);
+  };
 
-module.exports = Ship;
+  if (typeof module !== 'undefined' && module.exports) {
+    module.exports = Ship;
+  } else {
+    window.Ship = Ship;
+  }
+}());
+
 
 
 
