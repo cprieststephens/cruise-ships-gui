@@ -1,4 +1,4 @@
-const Ship = require('../src/ship.js');
+const Ship = require("../src/ship.js");
 
 describe("Ship", () => {
   describe("with ports and itinerary", () => {
@@ -36,6 +36,12 @@ describe("Ship", () => {
       expect(london.removeShip).toHaveBeenCalledWith(ship);
     });
 
+    it("can't sail further than its itinerary", () => {
+      ship.setSail();
+      ship.dock();
+      expect(() => ship.setSail()).toThrowError("End of itinerary reached");
+    });
+    
     it("can dock at different port", () => {
       ship.setSail();
       ship.dock();
@@ -45,17 +51,7 @@ describe("Ship", () => {
   });
 });
 
-describe("setSail", () => {
-  it("can't sail further than its itinerary", () => {
-    const london = { name: "London", ships: [], addShip: jest.fn(), removeShip: jest.fn() };
-    const liverpool = { name: "Liverpool", ships: [], addShip: jest.fn(), removeShip: jest.fn() };
-    const itinerary = { ports: [london, liverpool] };
-    const ship = new Ship(itinerary);
-    ship.setSail();
-    ship.dock();
-    expect(() => ship.setSail()).toThrowError("End of itinerary reached");
-  });
-});
+
 
 
 

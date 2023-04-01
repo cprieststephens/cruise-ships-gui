@@ -1,8 +1,8 @@
-const Port = require('../src/port.js');
+const Port = require("../src/port.js");
 
 describe("Port", () => {
   describe("with ships", () => {
-    let port
+    let port;
     let MaryRose;
     let Britannia;
 

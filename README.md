@@ -33,7 +33,7 @@ Use the command `npm test` to run the Jest tests for this project.
 - You will receive an error message if you try to sail further than the last port on the itinerary. 
 - To exit the Node REPL use `ctrl` + `d`.
 
-Author: Camilla Priest-Stephens with guidance from Command Shift.
+
 
 
 
