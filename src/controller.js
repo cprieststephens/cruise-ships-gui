@@ -62,6 +62,11 @@
           ship.dock();
           clearInterval(sailInterval);
           this.renderMessage(`Now arriving at ${ship.currentPort.name}`);
+          if (currentPortIndex + 1 === ship.itinerary.ports.length -1) {
+            this.updateDisplay(`Current Port: ${ship.currentPort.name}`, `Next Port: N/A End of the line!`);
+          } else {
+            this.updateDisplay(`Current Port: ${ship.currentPort.name}`, `Next Port: ${ship.itinerary.ports[nextPortIndex + 1].name}`);
+          }
         }
         shipElement.style.left = `${shipLeft + 1}px`;
       }, 20);
@@ -76,6 +81,13 @@
       setTimeout(() => {
         viewport.removeChild(messageElement)
       }, 2000);
+    }
+
+    updateDisplay(currentPortInformation, nextPortInformation) {
+      const currentPortUpdate = document.querySelector('#current-port');
+      const nextPortUpdate = document.querySelector('#next-port');
+      currentPortUpdate.innerHTML = currentPortInformation;
+      nextPortUpdate.innerHTML = nextPortInformation;
     }
   }
 

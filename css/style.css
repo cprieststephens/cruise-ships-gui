@@ -9,6 +9,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
 }
 
 #viewport {
@@ -64,6 +65,22 @@ body {
     position: absolute;
     width: 100%;
     bottom: 0;
-    border-top: 3px solid black;
+    border-top: 3px solid #000;
     background-color: white;  
 }
+
+#display {
+    background-color: #000;
+    align-self: flex-end;
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    color: white;
+    font-family: "Press Start 2P", cursive;
+}
+
+
+
+
+
+
