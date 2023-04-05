@@ -79,6 +79,19 @@ body {
     font-family: "Press Start 2P", cursive;
 }
 
+#current-port {
+    position: fixed;
+    top: 10px;
+    right: 20px;
+}
+
+#next-port {
+    position: fixed;
+    top: 40px;
+    right: 20px;
+}
+
+
 
 
 
