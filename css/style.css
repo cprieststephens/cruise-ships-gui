@@ -91,6 +91,35 @@ body {
     right: 20px;
 }
 
+#port-form {
+    width: 200px;
+    height: 100px;
+    background-color: white;
+    font-family: "Press Start 2P", cursive;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    padding-top: 15px;
+    padding-left: 10px;
+    padding-bottom:10px;
+    border: 4px solid black;
+    border-style: double;
+}
+
+#port-name {
+    width: 180px;
+    height: 25px;
+    margin-top: 10px;
+}
+
+#submit {
+    color: white;
+    background-color: red;
+    font-family: "Press Start 2P", cursive;
+    margin-top: 5px;
+}
+
+
 
 
 
