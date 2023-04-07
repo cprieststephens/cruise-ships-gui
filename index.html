@@ -18,26 +18,21 @@
         <div id="ship"></div>
         <button id="sailbutton" type="button">Set sail!</button>
     </div>
-    <form id="port-form" method="post">
+    <form id="port-form" onsubmit="return false" >
         <label id="title" for="port-name">Add port</label>
         <textarea id="port-name" name="port-name" placeholder="Port Name"></textarea>
-        <input id="submit" type="submit" name="submit" value="Add">
+        <button id="addbutton" type="button">Add</button>
     </form>
     <script src="src/controller.js"></script>
     <script src="src/itinerary.js"></script>
     <script src="src/port.js"></script>
     <script src="src/ship.js"></script>
     <script>
-        const itinerary = new Itinerary([
-          new Port("London"),
-          new Port("Liverpool"),
-          new Port("Dover"),
-          new Port("Calais")
-        ])
-        const ship = new Ship(itinerary);
-        const controller = new Controller(ship);
-        controller.renderPorts(itinerary.ports);
-        controller.renderShip();
+      const itinerary = new Itinerary([])
+      const ship = new Ship(itinerary);
+      const controller = new Controller(ship);
+      controller.renderShip();
+      //controller.renderPorts(ship.itinerary.ports);
     </script>
 </body>
 </html>
