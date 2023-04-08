@@ -1,4 +1,4 @@
-const Port = require("../src/port.js");
+const Port = require("./port.js");
 
 (function exportController() { 
 
@@ -7,10 +7,12 @@ const Port = require("../src/port.js");
       this.ship = ship
       this.initialiseSea();
       document.querySelector("#sailbutton").addEventListener("click", () => {
-      this.setSail();
+        this.setSail();
       });
       document.querySelector("#addbutton").addEventListener("click", () => {
-      this.addPort();
+        this.addPort();
+        this.renderPorts(ship.itinerary.ports);
+
       });
     }
 
@@ -100,8 +102,8 @@ const Port = require("../src/port.js");
       const newPortName = document.getElementById("port-name").value;
       const port = new Port(newPortName);
       return ship.itinerary.ports.push(port);
-      //this.renderPorts(ship.itinerary.ports);
      }
+
   }
 
   if (typeof module !== "undefined" && module.exports) {
