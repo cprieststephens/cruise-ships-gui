@@ -1,5 +1,3 @@
-const Port = require("./port.js");
-
 (function exportController() { 
 
   class Controller {
@@ -28,9 +26,16 @@ const Port = require("./port.js");
       }, 1000);
     }
 
+    resetContainer(parent){
+      while (parent.firstChild) {
+          parent.removeChild(parent.firstChild);
+      };
+  };
+
     renderPorts(ports) {
       const portsElement = document.querySelector("#ports");
       portsElement.style.width = "0px";
+      this.resetContainer(portsElement);
       ports.forEach((port, index) => {
         const newPortElement = document.createElement("div");
         newPortElement.className = "port";
@@ -46,6 +51,7 @@ const Port = require("./port.js");
       const ship = this.ship;
       const shipPortIndex = ship.itinerary.ports.indexOf(ship.currentPort);
       const portElement = document.querySelector(`[data-port-index="${shipPortIndex}"]`);
+      if (!portElement) return 
       const shipElement = document.querySelector("#ship");
       shipElement.style.top = `${portElement.offsetTop + 32}px`;
       shipElement.style.left = `${portElement.offsetLeft - 32}px`;
@@ -58,12 +64,13 @@ const Port = require("./port.js");
       const nextPortElement = document.querySelector(`[data-port-index="${nextPortIndex}"]`);  
       if (!nextPortElement) {
         this.renderMessage("End of the line!");
+        return;
       } else {
         this.renderMessage(`Now departing ${ship.currentPort.name}`);
       }
       const shipElement = document.querySelector("#ship");
       const sailInterval = setInterval(() => {
-        const shipLeft = parseInt(shipElement.style.left, 10);
+        const shipLeft = parseInt(shipElement.offsetLeft, 10);
         if (shipLeft === (nextPortElement.offsetLeft - 32)) {
           ship.setSail();
           ship.dock();
@@ -101,9 +108,12 @@ const Port = require("./port.js");
       const ship = this.ship;
       const newPortName = document.getElementById("port-name").value;
       const port = new Port(newPortName);
-      return ship.itinerary.ports.push(port);
+      ship.itinerary.ports.push(port);
+      if (!ship.currentPort) {
+        ship.currentPort = ship.itinerary.ports[0];
+        ship.currentPort.addShip(ship);
+      } 
      }
-
   }
 
   if (typeof module !== "undefined" && module.exports) {
