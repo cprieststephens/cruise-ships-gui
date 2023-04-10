@@ -4,13 +4,14 @@
     constructor(ship) {
       this.ship = ship
       this.initialiseSea();
-      document.querySelector("#sailbutton").addEventListener("click", () => {
-        this.setSail();
-      });
       document.querySelector("#addbutton").addEventListener("click", () => {
         this.addPort();
         this.renderPorts(ship.itinerary.ports);
-
+      });
+      document.querySelector("#sailbutton").addEventListener("click", () => {
+        this.setSail();
+        document.querySelector("#sailbutton").disabled = true;
+        document.querySelector("#addbutton").disabled = true;
       });
     }
 
@@ -29,8 +30,8 @@
     resetContainer(parent){
       while (parent.firstChild) {
           parent.removeChild(parent.firstChild);
-      };
-  };
+      }
+    }
 
     renderPorts(ports) {
       const portsElement = document.querySelector("#ports");
@@ -72,6 +73,7 @@
       const sailInterval = setInterval(() => {
         const shipLeft = parseInt(shipElement.offsetLeft, 10);
         if (shipLeft === (nextPortElement.offsetLeft - 32)) {
+          document.querySelector("#sailbutton").disabled = false;
           ship.setSail();
           ship.dock();
           clearInterval(sailInterval);
