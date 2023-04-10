@@ -2,7 +2,7 @@
 
   class Controller {
     constructor(ship) {
-      this.ship = ship
+      this.ship = ship;
       this.initialiseSea();
       document.querySelector("#addbutton").addEventListener("click", () => {
         this.addPort();
@@ -52,14 +52,14 @@
       const ship = this.ship;
       const shipPortIndex = ship.itinerary.ports.indexOf(ship.currentPort);
       const portElement = document.querySelector(`[data-port-index="${shipPortIndex}"]`);
-      if (!portElement) return 
+      if (!portElement) return;
       const shipElement = document.querySelector("#ship");
       shipElement.style.top = `${portElement.offsetTop + 32}px`;
       shipElement.style.left = `${portElement.offsetLeft - 32}px`;
     }
 
     setSail() {
-      const ship = this.ship
+      const ship = this.ship;
       const currentPortIndex = ship.itinerary.ports.indexOf(ship.currentPort);
       const nextPortIndex = currentPortIndex + 1;
       const nextPortElement = document.querySelector(`[data-port-index="${nextPortIndex}"]`);  
@@ -115,7 +115,7 @@
         ship.currentPort = ship.itinerary.ports[0];
         ship.currentPort.addShip(ship);
       } 
-     }
+    }
   }
 
   if (typeof module !== "undefined" && module.exports) {
