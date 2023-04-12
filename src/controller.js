@@ -4,14 +4,13 @@
     constructor(ship) {
       this.ship = ship;
       this.initialiseSea();
+
       document.querySelector("#addbutton").addEventListener("click", () => {
         this.addPort();
-        this.renderPorts(ship.itinerary.ports);
       });
+
       document.querySelector("#sailbutton").addEventListener("click", () => {
         this.setSail();
-        document.querySelector("#sailbutton").disabled = true;
-        document.querySelector("#addbutton").disabled = true;
       });
     }
 
@@ -21,6 +20,7 @@
         "./images/water1.png",
       ];
       let backgroundIndex = 0;
+
       window.setInterval(() => {
         document.querySelector("#viewport").style.backgroundImage = `url("${backgrounds[backgroundIndex % backgrounds.length]}")`;
         backgroundIndex += 1;
@@ -35,15 +35,19 @@
 
     renderPorts(ports) {
       const portsElement = document.querySelector("#ports");
+
       portsElement.style.width = "0px";
       this.resetContainer(portsElement);
+
       ports.forEach((port, index) => {
         const newPortElement = document.createElement("div");
+        const portsElementWidth = parseInt(portsElement.style.width, 10);
+
         newPortElement.className = "port";
         newPortElement.dataset.portName = port.name;
         newPortElement.dataset.portIndex = index;
+
         portsElement.appendChild(newPortElement);
-        const portsElementWidth = parseInt(portsElement.style.width, 10);
         portsElement.style.width = `${portsElementWidth + 256}px`;
       })
     }
@@ -52,8 +56,10 @@
       const ship = this.ship;
       const shipPortIndex = ship.itinerary.ports.indexOf(ship.currentPort);
       const portElement = document.querySelector(`[data-port-index="${shipPortIndex}"]`);
-      if (!portElement) return;
       const shipElement = document.querySelector("#ship");
+
+      if (!portElement) return;
+      
       shipElement.style.top = `${portElement.offsetTop + 32}px`;
       shipElement.style.left = `${portElement.offsetLeft - 32}px`;
     }
@@ -63,58 +69,79 @@
       const currentPortIndex = ship.itinerary.ports.indexOf(ship.currentPort);
       const nextPortIndex = currentPortIndex + 1;
       const nextPortElement = document.querySelector(`[data-port-index="${nextPortIndex}"]`);  
+
       if (!nextPortElement) {
         this.renderMessage("End of the line!");
         return;
       } else {
         this.renderMessage(`Now departing ${ship.currentPort.name}`);
       }
+
       const shipElement = document.querySelector("#ship");
       const sailInterval = setInterval(() => {
         const shipLeft = parseInt(shipElement.offsetLeft, 10);
+
         if (shipLeft === (nextPortElement.offsetLeft - 32)) {
           document.querySelector("#sailbutton").disabled = false;
+          document.querySelector("#addbutton").disabled = false;
           ship.setSail();
           ship.dock();
           clearInterval(sailInterval);
           this.renderMessage(`Now arriving at ${ship.currentPort.name}`);
-          if (currentPortIndex + 1 === ship.itinerary.ports.length -1) {
-            this.updateDisplay(`Current Port: ${ship.currentPort.name}`, `Next Port: N/A End of the line!`);
-          } else {
-            this.updateDisplay(`Current Port: ${ship.currentPort.name}`, `Next Port: ${ship.itinerary.ports[nextPortIndex + 1].name}`);
-          }
+          this.updateDisplay();
         }
+        
         shipElement.style.left = `${shipLeft + 1}px`;
       }, 20);
+
+      document.querySelector("#sailbutton").disabled = true;
+      document.querySelector("#addbutton").disabled = true;
     }
 
     renderMessage(message) {
       const messageElement = document.createElement("div");
+      const viewport = document.querySelector("#viewport");
+
       messageElement.id = "message";
       messageElement.innerHTML = message;
-      const viewport = document.querySelector("#viewport");
+      
       viewport.appendChild(messageElement); 
       setTimeout(() => {
         viewport.removeChild(messageElement)
       }, 2000);
     }
 
-    updateDisplay(currentPortInformation, nextPortInformation) {
+    updateDisplay() {
+      const currentPort =  this.ship.currentPort;
+      const ports = this.ship.itinerary.ports;
+      const nextPort = ports[ports.indexOf(currentPort) +1] || {name: "N/A End of the line!"};
+
       const currentPortUpdate = document.querySelector("#current-port");
       const nextPortUpdate = document.querySelector("#next-port");
-      currentPortUpdate.innerHTML = currentPortInformation;
-      nextPortUpdate.innerHTML = nextPortInformation;
+      currentPortUpdate.innerHTML = `Current Port: ${currentPort.name}`;
+      nextPortUpdate.innerHTML = `Next Port: ${nextPort.name}`;
+
+      if (nextPortIndex === ports.length -1) {
+        this.updateDisplay(`Current Port: ${currentPort.name}`, `Next Port: N/A End of the line!`);
+      } else {
+        this.updateDisplay(`Current Port: ${currentPort.name}`, `Next Port: ${ports[nextPortIndex + 1].name}`);
+      }
     }
 
     addPort() {
-      const ship = this.ship;
+      const ports = this.ship.itinerary.ports;
       const newPortName = document.getElementById("port-name").value;
       const port = new Port(newPortName);
-      ship.itinerary.ports.push(port);
+
+      ports.push(port);
+
       if (!ship.currentPort) {
-        ship.currentPort = ship.itinerary.ports[0];
+        ship.currentPort = ports[0];
         ship.currentPort.addShip(ship);
       } 
+      
+      this.renderPorts(ports);
+      this.updateDisplay()
     }
   }
 
