@@ -90,7 +90,7 @@
           this.renderMessage(`Now arriving at ${ship.currentPort.name}`);
           this.updateDisplay();
         }
-        
+
         shipElement.style.left = `${shipLeft + 1}px`;
       }, 20);
 
