@@ -1,5 +1,7 @@
 # Cruise Ships
 
+<img src="images\Screenshot.png" alt="Screenshot of Cruise Ships GUI" title="Cruise Ships GUI" width="400px"><br>
+
 I completed this guided project using JavaScript, HTML and CSS as a part of Command Shift bootcamp. I wrote the unit tests using Jest.
 
 Features:
@@ -7,6 +9,8 @@ Features:
 - The ship can set sail and dock at different ports.
 - Information about the current port and next port is updated in the browser as the ship moves.
 - The "Add" and "Set Sail!" buttons are disabled whilst the ship is moving between ports.
+
+GitHub Pages link: https://cprieststephens.github.io/cruise-ships-gui/
 
 ## Getting started
 
