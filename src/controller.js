@@ -100,14 +100,14 @@
 
     renderMessage(message) {
       const messageElement = document.createElement("div");
-      const viewport = document.querySelector("#viewport");
+      const container = document.querySelector("#container");
 
       messageElement.id = "message";
       messageElement.innerHTML = message;
       
-      viewport.appendChild(messageElement); 
+      container.appendChild(messageElement); 
       setTimeout(() => {
-        viewport.removeChild(messageElement)
+        container.removeChild(messageElement)
       }, 2000);
     }
 
