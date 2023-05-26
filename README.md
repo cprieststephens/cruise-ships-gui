@@ -2,7 +2,7 @@
 
 <img src="images\Screenshot.png" alt="Screenshot of Cruise Ships GUI" title="Cruise Ships GUI" width="400px"><br>
 
-I completed this guided project using JavaScript, HTML and CSS as a part of Command Shift bootcamp. I wrote the unit tests using Jest.
+I completed this project using JavaScript, HTML and CSS for Command Shift bootcamp. I wrote the unit tests using Jest.
 
 Features:
 - Users can create a series of ports via an HTML form.
@@ -17,7 +17,7 @@ GitHub Pages link: https://cprieststephens.github.io/cruise-ships-gui/
 ### Clone this repository
 
 - Create a fork of this repo.
-- Clone your copy of the repo using the command: `git clone git@github.com:*your-github-username*/*repo-name*.git`
+- Copy the fork's git address and clone to your machine using `git clone`.
 
 ### Install the project dependencies
 
